@@ -1,17 +1,18 @@
-// import {DocumentDefinition} from 'mongoose';
+import {Document} from 'mongoose';
 
 import User, { userDocument } from "../models/user.model";
 
 
-export async function createUser(input: userDocument) {
+export async function createUser(input: Document<Omit<userDocument, 'createdAt' | 'updatedAt' | 'comparePassword'>>) {
     try {
         return await User.create(input)
     } catch (error: unknown) {
         if (error instanceof Error) {
-            throw new Error(error.message); // Use the error message if it's an Error object
+            throw new Error(error.message); 
         } else {
-            throw new Error(String(error)); // Convert the unknown type to a string
+            throw new Error(String(error)); 
         }
     }
 }
+
 

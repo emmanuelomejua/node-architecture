@@ -15,11 +15,13 @@ export interface userDocument extends Document {
 const userSchema = new Schema({
     email: {type: String, required: true, unique: true},
     password: { type: String, required: true },
-    name: { type: String, required: true }
+    name: { type: String, required: true },
+    // confirmPassword: { type: String, required: true },
 }, {timestamps: true});
 
 
 userSchema.pre('save', async  function(next: any) {
+                    // @ts-ignore
     let user = this as userDocument;
 
     if(!user.isModified('password')){
