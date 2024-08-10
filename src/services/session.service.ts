@@ -1,4 +1,5 @@
-import Session from "../models/session.model";
+import { FilterQuery } from "mongoose";
+import Session, {  sessionDocument  } from "../models/session.model";
 
 export async function createSession(userId: string, userAgent: string) {
     try {
@@ -10,5 +11,14 @@ export async function createSession(userId: string, userAgent: string) {
         } else {
             throw new Error(String(error)); 
         }
+    }
+}
+
+
+export async function findSessions(query: FilterQuery <sessionDocument>) {
+    try {
+        return Session.find(query).lean()
+    } catch (error:any) {
+        throw new Error(error)
     }
 }
